@@ -1,0 +1,20 @@
+.mleft {
+    margin-top: 50px;
+    margin-left: 100px;
+    margin-right: 50px;
+}
+
+.btnleft{
+    margin-left: 20px;
+}
+
+.params{
+    margin-left: 400px;
+    margin-right: 400px;
+}
+/* .mbox {
+    width: 200px;
+    margin-left: 0%;
+    margin-right: 200px;
+    margin-top: 50px;
+} */
