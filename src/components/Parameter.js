@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
-import './content.css'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import './content.css';
+// import { Link } from 'react-router-dom'
 
 export default function Parameter(props) {
 

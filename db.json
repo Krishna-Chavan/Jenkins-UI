@@ -1,81 +1,73 @@
 {
   "parameters": [
     {
-      "id": "95d18980-f03f-45f0-9811-8b2ac276988b",
+      "id": "054b8322-fc22-4196-9370-cc1585159848",
       "name": "branch",
-      "value": "master"
+      "value": "dev",
+      "releaseType": "first release",
+      "envName": "Prod Env",
+      "selectSprint": "sprint1"
     },
     {
-      "id": "0b22871a-a329-4e65-ac8f-a3f877ee516b",
-      "name": "Name ",
-      "value": "krishna"
-    },
-    {
-      "id": "6c8efbdf-14c2-476d-aff0-a3775a9b55d2",
-      "name": "key",
-      "value": "value"
-    },
-    {
-      "id": "47374798-6b13-4ae4-b8c9-d70dcadc8b84",
-      "name": "ghjdk",
-      "value": "sj"
+      "id": "51bf027c-da0b-463f-ac67-ca7b757ba165",
+      "name": "branch1",
+      "value": "master",
+      "releaseType": "second release",
+      "envName": "dev env",
+      "selectSprint": "sprint2"
     }
   ],
   "builds": [
     {
-      "id": "3d5d7262-c3ee-4539-bdb1-492b73105ad3",
+      "id": "44a81479-dede-4e99-9315-b877c402c10b",
       "sn": "1",
       "buildstep": "Branch Creation",
-      "description": "branch creation for jenkins job"
+      "description": "branch creation for gitlab",
+      "jobname": "firstjob"
     },
     {
-      "id": "1857c908-0d4c-4da8-a14b-23c394cf491a",
+      "id": "7ee9fa91-3b93-41ce-a1c8-f28a3c686e12",
       "sn": "2",
-      "buildstep": "File Update",
-      "description": "Jenkins file update based on env/k8s ns"
-    },
-    {
-      "id": "f6a2435e-7e95-4232-b044-109ac8d876f7",
-      "sn": "3",
-      "buildstep": "Auto Merge Enable",
-      "description": "enable the automerge branches"
-    },
-    {
-      "id": "8296d829-01b3-4ee2-8c15-a9fcb5a4cccc",
-      "sn": "4",
-      "buildstep": "Cluster or NS existance",
-      "description": "cluster or ns existance check and creating"
-    },
-    {
-      "id": "6d27c6bb-b778-48d8-8872-7ac66c43ca19",
-      "sn": "5 ",
-      "buildstep": "Update Cluster Role",
-      "description": "updating cluster role for dynamic config refresh"
-    },
-    {
-      "id": "9a6c9801-858a-4aa3-8546-44faf92a7e8e",
-      "sn": "6",
-      "buildstep": "TPM",
-      "description": "tpm based enablement"
-    },
-    {
-      "id": "e78e1932-a968-4e4e-96a1-f883af0faa02",
-      "sn": "7",
-      "buildstep": "Logging ",
-      "description": "logging"
-    },
-    {
-      "id": "89c46261-2da1-405b-b29d-42627a1a8106",
-      "sn": "8",
-      "buildstep": "ConfigMap",
-      "description": "configmap"
-    },
-    {
-      "id": "8d03964a-5a6a-4244-8d76-5330dd45ea17",
-      "sn": "9",
-      "buildstep": "Application Pipeline Creation",
-      "description": "Application Pipeline Creation",
+      "buildstep": "clone Job",
+      "description": "clone job freestyle",
       "jobname": "clonejob"
+    },
+    {
+      "id": "f9ae3727-5dda-439c-8afa-1059c247911d",
+      "sn": "",
+      "buildstep": "",
+      "description": "",
+      "jobname": ""
+    }
+  ],
+  "addRelease": [
+    {
+      "id": "dfa6a2cd-a706-4004-81bd-9cc778fa30a9",
+      "envavailabilitydate": "2022-08-09",
+      "deploymentdate": "2022-08-09",
+      "codefreezedate": "2022-08-09",
+      "releaseType": "master",
+      "releaseName": "first",
+      "branchName": "master",
+      "clarityRelease": "confirm",
+      "jirafix": "1",
+      "envname": "master",
+      "sprint": "1",
+      "description": "first release"
+    },
+    {
+      "id": "ecc8abff-f621-4e91-a839-5c65db0f186c",
+      "envavailabilitydate": "2022-08-25",
+      "deploymentdate": "2022-09-08",
+      "codefreezedate": "2022-08-23",
+      "releaseType": "",
+      "releaseName": "env2",
+      "branchName": "",
+      "clarityRelease": "abcd",
+      "jirafix": "2",
+      "envname": "",
+      "sprint": "sprint2",
+      "description": "second release"
     }
   ]
 }

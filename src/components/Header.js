@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-dom";
+import './content.css'
 
 export default function Header() {
   return (
@@ -11,10 +12,10 @@ export default function Header() {
       </button>
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav">
-          <Link className="nav-link active" aria-current="page" to="/project" >Projects</Link>
+          <Link className="nav-link active" aria-current="page" to="/" >Projects</Link>
           <Link className="nav-link" to="/parameter">Parameters</Link>
-          <Link className="nav-link" to="/agent">Agent</Link>
-          <Link className="nav-link" to="/queue">Queue</Link>
+          {/* <Link className="nav-link" to="/agent">Agent</Link> */}
+          <Link className="nav-link" to="/release">Release</Link>
         </div>
       </div>
     </div>

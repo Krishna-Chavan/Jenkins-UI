@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react'
-import { useHistory } from 'react-router-dom'
+import React, {useState} from 'react'
+import { useNavigate } from 'react-router'
 import {v4 as uuidv4} from 'uuid';
 
 export default function Addbuildstep() {
@@ -9,7 +9,7 @@ export default function Addbuildstep() {
     const [description, setDescription] = useState('')
     const [jobname, setJobname] = useState('')
 
-    let history=useHistory();
+    let navigate=useNavigate();
     function AddParametersHandler() {
         fetch('http://localhost:3002/builds',{
         method:'POST',
@@ -18,7 +18,7 @@ export default function Addbuildstep() {
         },
         body:JSON.stringify({id:uuidv4(),sn,buildstep,description,jobname})
     }).then(res=>{
-        history.push('/');
+        navigate('/');
     });
     }
 
