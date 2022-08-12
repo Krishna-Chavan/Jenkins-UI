@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { useNavigate } from 'react-router';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -8,8 +8,23 @@ export default function AddParameters() {
     const [releaseType, setReleaseType] = useState('');
     const [envName, setEnvName] = useState('');
     const [selectSprint, setSelectSprint] = useState('');
+    const [btnEnable, setBtnEnable] = useState(true)
 
     let navigate = useNavigate();
+
+    const handleInputChange = (e) => {
+        if(e.target.id === 'parameterName') setName(e.target.value);
+        if(e.target.id === 'parameterValue') setValue(e.target.value);
+        if(e.target.id === 'releaseType') setReleaseType(e.target.value);
+        if(e.target.id === 'envName') setEnvName(e.target.value);
+        if(e.target.id === 'sprint') setSelectSprint(e.target.value);
+    }
+
+    useEffect(() => {
+      InputValidation();
+    }, [name,value,releaseType,envName,selectSprint])
+    
+
     function AddParametersHandler() {
         fetch('http://localhost:3002/parameters', {
             method: 'POST',
@@ -20,6 +35,14 @@ export default function AddParameters() {
         }).then(res => {
             navigate('/parameter');
         });
+    }
+
+    const InputValidation = () => {
+        if(name !== '' && value !== '' && releaseType !== '' && envName !== '' && selectSprint !== ''){
+            setBtnEnable(false);
+        }else{
+            setBtnEnable(true);
+        }
     }
 
     return (
@@ -41,22 +64,22 @@ export default function AddParameters() {
             <div className="row">
                 <div className="col-md-6 offset-md-3">
                     <div className="mb-2 mt-2">
-                        <input id="txtKey" type="text" onChange={(e) => setName(e.target.value)} className="form-control" placeholder="Enter Name" />
+                        <input id="parameterName" type="text" onChange={handleInputChange} className="form-control" placeholder="Enter Name" />
                     </div>
                     <div className="mb-2">
-                        <input id="txtValue" type="text" onChange={(e) => setValue(e.target.value)} className="form-control" placeholder="Enter Value" />
+                        <input id="parameterValue" type="text" onChange={handleInputChange} className="form-control" placeholder="Enter Value" />
                     </div>
                     <div className="mb-2">
-                        <input id="txtValue" type="text" onChange={(e) => setReleaseType(e.target.value)} className="form-control" placeholder="Enter Release Type" />
+                        <input id="releaseType" type="text" onChange={handleInputChange} className="form-control" placeholder="Enter Release Type" />
                     </div>
                     <div className="mb-2">
-                        <input id="txtValue" type="text" onChange={(e) => setEnvName(e.target.value)} className="form-control" placeholder="Enter Environmant Name" />
+                        <input id="envName" type="text" onChange={handleInputChange} className="form-control" placeholder="Enter Environmant Name" />
                     </div>
                     <div className="mb-2">
-                        <input id="txtValue" type="text" onChange={(e) => setSelectSprint(e.target.value)} className="form-control" placeholder="Enter Sprint" />
+                        <input id="sprint" type="text" onChange={handleInputChange} className="form-control" placeholder="Enter Sprint" />
                     </div>
                     <div className="mb-2 text-center">
-                        <button id="btnAdd" data-testid="btnAdd" type="button" className="btn btn-secondary" style={{borderRadius: '18px'}} onClick={AddParametersHandler}>Add Parameter</button>
+                        <button id="btnAdd" data-testid="btnAdd" type="button"  disabled={btnEnable} className="btn btn-secondary" style={{borderRadius: '18px'}} onClick={AddParametersHandler}>Add Parameter</button>
                     </div>
                 </div>
             </div>

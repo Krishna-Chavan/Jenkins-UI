@@ -7,7 +7,7 @@ export default function Content() {
     const [builds, setBuilds] = useState([])
     const [isActive, setIsActive] = useState([]);
     const [url, setUrl] = useState([]);
-    const [status, setStatus] = useState('')
+    const [status, setStatus] = useState([])
 
     useEffect(() => {
         fetch('http://localhost:3002/builds')
@@ -23,6 +23,12 @@ export default function Content() {
     //     })
     // }
 
+    const fetchJobDetails = () => {
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then(data => setStatus(data))
+    }
+    console.log(status);
+
     const handleCheckBox = (e) => {
         if (e.target.checked) {
             setIsActive([...isActive, e.target.id]);
@@ -30,7 +36,8 @@ export default function Content() {
                 if (data.sn === e.target.id)
                     setUrl([
                         ...url,
-                        `http://20.84.53.117:8080/job/${data.jobname}/build?token=1109e38f08a3ee512708f62aeec98bd943`,
+                        // `http://20.84.53.117:8080/job/${data.jobname}/build?token=1109e38f08a3ee512708f62aeec98bd943`,
+                        `http://localhost:8080/job/secondjob/build?token=11021102beecfe536fd521b6cf2b5156d9`,
                     ]);
             });
         } else {
@@ -52,16 +59,16 @@ export default function Content() {
         // console.log(jenkins)
         for (let i = 0; i < urls.length; i++) {
             window.open(urls[i])
-            fetch(`https://cors-anywhere.herokuapp.com/http://20.84.53.117:8080/job/firstjob/lastBuild/api/json`,{
+            fetch(`http://localhost:8080/job/secondjob/lastBuild/api/json?pretty=true?token=11021102beecfe536fd521b6cf2b5156d9`, {
                 method: 'GET',
                 headers: new Headers({
-                    'Authorization': 'Basic '+btoa('admin:Admin123'), 
+                    'Authorization': 'Basic ' + btoa('admin:Krish@1209'),
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Headers': "*",
                     'Access-Control-Allow-Origin': "*",
-                    Token: '1109e38f08a3ee512708f62aeec98bd943'
-                }), 
-                
+                    Token: '11021102beecfe536fd521b6cf2b5156d9'
+                }),
+
             })
                 .then(data => setStatus(data))
             if (status.result === "SUCCESS") {
@@ -115,11 +122,12 @@ export default function Content() {
 
     return (
         <div className='mleft'>
-            <Link to="/addbuildstep" className="btn btn-secondary mb-2" type="button" style={{borderRadius: '18px'}}>Add build step</Link>
-            <button type='button' className='btn btn-secondary btnleft' style={{borderRadius: '18px'}} onClick={() => openInNewTab('http://20.84.53.117:8080/job/clonejob/buildWithParameters?token=1109e38f08a3ee512708f62aeec98bd943&Name=krishnaschavan')}>
+            <Link to="/addbuildstep" className="btn btn-secondary mb-2" type="button" style={{ borderRadius: '18px' }}>Add build step</Link>
+            <button type='button' className='btn btn-secondary btnleft' style={{ borderRadius: '18px' }} onClick={() => openInNewTab('http://localhost:8080/job/Automatic-build-job/build?token=11021102beecfe536fd521b6cf2b5156d9')}>
                 RUN ALL
             </button>
-            <button type='button' style={{borderRadius: '18px'}} className='btn btn-secondary btnleft' onClick={multiUrl}>RUN selected builds</button>
+            <button type='button' style={{ borderRadius: '18px' }} className='btn btn-secondary btnleft' onClick={multiUrl}>RUN selected builds</button>
+            <button type='button' style={{ borderRadius: '18px' }} className='btn btn-secondary btnleft' onClick={fetchJobDetails}>Fetch</button>
             {/* <div>
         <Link to={`http://20.84.53.117:8080/job/clonejob/buildWithParameters?token=1109e38f08a3ee512708f62aeec98bd943&Name=krishnaschavan`}>
             <button type='button' className='btn btn-success mb-2'>RUN ALL</button>
@@ -148,7 +156,7 @@ export default function Content() {
                                     {/* <div className="dropdown"> */}
                                     {/* <a href={`http://20.84.53.117:8080/job/${b.jobname}/build?token=1109e38f08a3ee512708f62aeec98bd943`}>run job</a> */}
                                     {/* <a href={`http://20.84.53.117:8080/job/clonejob/buildWithParameters?token=1109e38f08a3ee512708f62aeec98bd943&Name=krishnaschavan`}>run job</a> */}
-                                    <button type='button' className='btn btn-secondary' style={{borderRadius: '18px'}} onClick={() => openInNewTab('http://20.84.53.117:8080/job/clonejob/buildWithParameters?token=1109e38f08a3ee512708f62aeec98bd943&Name=krishnaschavan')}>
+                                    <button type='button' className='btn btn-secondary' style={{ borderRadius: '18px' }} onClick={() => openInNewTab('http://20.84.53.117:8080/job/clonejob/buildWithParameters?token=1109e38f08a3ee512708f62aeec98bd943&Name=krishnaschavan')}>
                                         Run Job
                                     </button>
                                     <input type="checkbox" id={b.sn} className="disableRow btnleft" value="websitecheck" name="websitecheck" onChange={handleCheckBox} />

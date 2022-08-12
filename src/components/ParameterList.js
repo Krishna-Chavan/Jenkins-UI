@@ -5,7 +5,7 @@ export default function ParameterList() {
 
     const [params, setParams] = useState([])
 
-    function AddContactFunction(para) {
+    function AddParamFunction(para) {
       setParams([...params, para]);
     }
 

@@ -25,7 +25,7 @@ export default function Project() {
                 <div class="card-body">
                     <h5 class="card-title">Environment: Dev</h5>
                     <p>This is simple project to run jenkins job from UI</p>
-                    <a href="#" class="btn btn-secondary" style={{ borderRadius: '18px', width: '120px' }} onClick={moveTo}>View Project</a>
+                    <a href="" class="btn btn-secondary" style={{ borderRadius: '18px', width: '120px' }} onClick={moveTo}>View Project</a>
                 </div>
             </div>
         </div>

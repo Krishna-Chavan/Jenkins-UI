@@ -15,6 +15,14 @@
       "releaseType": "second release",
       "envName": "dev env",
       "selectSprint": "sprint2"
+    },
+    {
+      "id": "717389c8-9466-4e41-8f4d-030427f7a238",
+      "name": "1",
+      "value": "2",
+      "releaseType": "1",
+      "envName": "1",
+      "selectSprint": "1"
     }
   ],
   "builds": [
@@ -31,13 +39,6 @@
       "buildstep": "clone Job",
       "description": "clone job freestyle",
       "jobname": "clonejob"
-    },
-    {
-      "id": "f9ae3727-5dda-439c-8afa-1059c247911d",
-      "sn": "",
-      "buildstep": "",
-      "description": "",
-      "jobname": ""
     }
   ],
   "addRelease": [
