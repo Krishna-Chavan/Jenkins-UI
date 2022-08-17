@@ -23,6 +23,22 @@
       "releaseType": "1",
       "envName": "1",
       "selectSprint": "1"
+    },
+    {
+      "id": "51d3ab88-e9b2-4f41-b322-f3ed6257eaeb",
+      "name": "1",
+      "value": "1",
+      "releaseType": "1",
+      "envName": "1",
+      "selectSprint": "1"
+    },
+    {
+      "id": "8bbae459-5a6a-4639-9b78-49f799618e3c",
+      "name": "1",
+      "value": "2",
+      "releaseType": "3",
+      "envName": "4",
+      "selectSprint": "2"
     }
   ],
   "builds": [

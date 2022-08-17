@@ -16,7 +16,11 @@ export default function Release() {
     const [description, setDescription] = useState('');
     const [btnEnable, setbtnEnable] = useState(true);
     const [relType, setRelType] = useState([]);
-
+    let errorsObj = {
+        envavailabilitydate: null, deploymentdate: null, codefreezedate: null, releaseType: '',
+        releaseName: '', branchName: '', clarityRelease: '', jirafix: '', envname: '', sprint: ''
+    }
+    const [errors, setErrors] = useState(errorsObj);
 
     let navigate = useNavigate();
 
@@ -50,6 +54,55 @@ export default function Release() {
         if (e.target.id === 'codeFreez') setCodefreezedate(e.target.value);
         if (e.target.id === 'sprint') setSprint(e.target.value);
         if (e.target.id === 'description') setDescription(e.target.value);
+    }
+
+    const handleInputNullCheck = (e) => {
+        let error = false;
+        const errObj = { ...errorsObj };
+        if (e.target.id === 'releaseType' && e.target.value === '') {
+            errObj.releaseType = 'release type required';
+            error = true;
+        }
+        if (e.target.id === 'branchName' && e.target.value === '') {
+            errObj.branchName = 'branch name required';
+            error = true;
+        }
+        if (e.target.id === 'releaseName' && e.target.value === '') {
+            errObj.releaseName = 'release name required';
+            error = true;
+        }
+        if (e.target.id === 'clarityRelease' && e.target.value === '') {
+            errObj.clarityRelease = 'clarityRelease required';
+            error = true;
+        }
+        if (e.target.id === 'jiraFix' && e.target.value === '') {
+            errObj.jiraFix = 'jiraFix required';
+            error = true;
+        }
+        if (e.target.id === 'environmentName' && e.target.value === '') {
+            errObj.envname = 'environment name required';
+            error = true;
+        }
+        if (e.target.id === 'envAvailability' && e.target.value === '') {
+            errObj.envavailabilitydate = 'envAvailability date required';
+            error = true;
+        }
+        if (e.target.id === 'deploymentDate' && e.target.value === '') {
+            errObj.deploymentdate = 'deploymentDate required';
+            error = true;
+        }
+        if (e.target.id === 'codeFreez' && e.target.value === '') {
+            errObj.codefreezedate = 'codeFreez date required';
+            error = true;
+        }
+        if (e.target.id === 'sprint' && e.target.value === '') {
+            errObj.sprint = 'sprint value required';
+            error = true;
+        }
+        setErrors(errObj);
+        if (!error) {
+            console.log('all fileds are filled')
+        }
     }
 
     const addBuildDetails = () => {
@@ -100,8 +153,8 @@ export default function Release() {
                 <div className="row">
                     <div className="col-md-4 offset-md-1">
                         <div className="mb-2" style={{ marginTop: '50px' }}>
-                            <label style={{ fontWeight: 'bold', fontStyle: 'italic' }}>Release Type</label>
-                            <select id='releaseType' style={{ fontWeight: 'normal', fontStyle: 'italic' }} className='col-md-12' onChange={handleInpChanges}>
+                            <label style={{ fontWeight: 'bold', fontStyle: 'italic' }}>Release Type<span style={{ color: 'red' }}>*</span></label>
+                            <select id='releaseType' style={{ fontWeight: 'normal', fontStyle: 'italic' }} className='col-md-12' onChange={handleInpChanges} onBlur={handleInputNullCheck}>
                                 <option value="0" style={{ fontWeight: 'bold', fontStyle: 'italic' }}>Select release type</option>
                                 {
                                     relType.map((v) => (
@@ -109,13 +162,14 @@ export default function Release() {
                                     ))
                                 }
                             </select>
+                            {errors.releaseType && <div style={{ color: 'red' }}>{errors.releaseType}</div>}
                         </div>
                     </div>
                     <div className="col-md-4 offset-md-2">
                         <div className="mb-2" style={{ marginTop: '50px' }}>
-                            <label style={{ fontWeight: 'bold', fontStyle: 'italic' }}>Branch Name</label>
+                            <label style={{ fontWeight: 'bold', fontStyle: 'italic' }}>Branch Name<span style={{ color: 'red' }}>*</span></label>
                             {/* <input type="text" aria-label='Name' /> */}
-                            <select id='branchName' style={{ fontWeight: 'normal', fontStyle: 'italic' }} className='col-md-12' onChange={handleInpChanges}>
+                            <select id='branchName' style={{ fontWeight: 'normal', fontStyle: 'italic' }} className='col-md-12' onChange={handleInpChanges} onBlur={handleInputNullCheck}>
                                 <option value="0" style={{ fontWeight: 'bold', fontStyle: 'italic' }}>Select branch</option>
                                 {
                                     relType.map((v) => (
@@ -123,31 +177,35 @@ export default function Release() {
                                     ))
                                 }
                             </select>
+                            {errors.branchName && <div style={{ color: 'red' }}>{errors.branchName}</div>}
                         </div>
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <div className="mb-2 mt-3">
-                            <label style={{ fontWeight: 'bold', fontStyle: 'italic' }}>Release Name</label>
-                            <input id='releaseName' type="text" aria-label='Name' onChange={handleInpChanges} />
+                            <label style={{ fontWeight: 'bold', fontStyle: 'italic' }}>Release Name<span style={{ color: 'red' }}>*</span></label>
+                            <input id='releaseName' type="text" aria-label='Name' onChange={handleInpChanges} onBlur={handleInputNullCheck} />
+                            {errors.releaseName && <div style={{ color: 'red' }}>{errors.releaseName}</div>}
                         </div>
                     </div>
                     <div className="col-md-4 offset-md-2">
                         <div className="mb-2 mt-3">
-                            <label style={{ fontWeight: 'bold', fontStyle: 'italic' }}>Clarity Release</label>
-                            <input id='clarityRelease' type="text" aria-label='Name' onChange={handleInpChanges} />
+                            <label style={{ fontWeight: 'bold', fontStyle: 'italic' }}>Clarity Release<span style={{ color: 'red' }}>*</span></label>
+                            <input id='clarityRelease' type="text" aria-label='Name' onChange={handleInpChanges} onBlur={handleInputNullCheck} />
+                            {errors.clarityRelease && <div style={{ color: 'red' }}>{errors.clarityRelease}</div>}
                         </div>
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <div className="mb-2 mt-3">
-                            <label style={{ fontWeight: 'bold', fontStyle: 'italic' }}>Jira fix version</label>
-                            <input id='jiraFix' type="text" aria-label='Name' onChange={handleInpChanges} />
+                            <label style={{ fontWeight: 'bold', fontStyle: 'italic' }}>Jira fix version<span style={{ color: 'red' }}>*</span></label>
+                            <input id='jiraFix' type="text" aria-label='Name' onChange={handleInpChanges} onBlur={handleInputNullCheck} />
+                            {errors.jirafix && <div style={{ color: 'red' }}>{errors.jirafix}</div>}
                         </div>
                     </div>
                     <div className="col-md-4 offset-md-2">
                         <div className="mb-2 mt-3">
-                            <label style={{ fontWeight: 'bold', fontStyle: 'italic' }}>Envirnonment name</label>
+                            <label style={{ fontWeight: 'bold', fontStyle: 'italic' }}>Envirnonment name<span style={{ color: 'red' }}>*</span></label>
                             {/* <input type="text" aria-label='Name' /> */}
-                            <select id='environmentName' style={{ fontWeight: 'normal', fontStyle: 'italic' }} className='col-md-12' onChange={handleInpChanges}>
+                            <select id='environmentName' style={{ fontWeight: 'normal', fontStyle: 'italic' }} className='col-md-12' onChange={handleInpChanges} onBlur={handleInputNullCheck}>
                                 <option value="0" style={{ fontWeight: 'bold', fontStyle: 'italic' }}>Select env name</option>
                                 {
                                     relType.map((v) => (
@@ -155,31 +213,35 @@ export default function Release() {
                                     ))
                                 }
                             </select>
+                            {errors.envname && <div style={{ color: 'red' }}>{errors.envname}</div>}
                         </div>
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <div className="mb-2 mt-3">
-                            <label style={{ fontWeight: 'bold', fontStyle: 'italic' }}>ENV availability</label>
-                            <input id='envAvailability' type="date" aria-label='Name' onChange={handleInpChanges} />
+                            <label style={{ fontWeight: 'bold', fontStyle: 'italic' }}>ENV availability<span style={{ color: 'red' }}>*</span></label>
+                            <input id='envAvailability' type="date" aria-label='Name' onChange={handleInpChanges} onBlur={handleInputNullCheck} />
+                            {errors.envavailabilitydate && <div style={{ color: 'red' }}>{errors.envavailabilitydate}</div>}
                         </div>
                     </div>
                     <div className="col-md-4 offset-md-2">
                         <div className="mb-2 mt-3">
-                            <label style={{ fontWeight: 'bold', fontStyle: 'italic' }}>Deployment</label><br />
-                            <input id='deploymentDate' type="date" aria-label='Name' onChange={handleInpChanges} />
+                            <label style={{ fontWeight: 'bold', fontStyle: 'italic' }}>Deployment<span style={{ color: 'red' }}>*</span></label><br />
+                            <input id='deploymentDate' type="date" aria-label='Name' onChange={handleInpChanges} onBlur={handleInputNullCheck} />
+                            {errors.deploymentdate && <div style={{ color: 'red' }}>{errors.deploymentdate}</div>}
                         </div>
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <div className="mb-2 mt-3">
-                            <label style={{ fontWeight: 'bold', fontStyle: 'italic' }}>Code freeze</label><br />
-                            <input id='codeFreez' type="date" aria-label='Name' onChange={handleInpChanges} />
+                            <label style={{ fontWeight: 'bold', fontStyle: 'italic' }}>Code freeze<span style={{ color: 'red' }}>*</span></label><br />
+                            <input id='codeFreez' type="date" aria-label='Name' onChange={handleInpChanges} onBlur={handleInputNullCheck} />
+                            {errors.codefreezedate && <div style={{ color: 'red' }}>{errors.codefreezedate}</div>}
                         </div>
                     </div>
                     <div className="col-md-4 offset-md-2">
                         <div className="mb-2 mt-3">
-                            <label style={{ fontWeight: 'bold', fontStyle: 'italic' }}>Select sprint</label><br />
+                            <label style={{ fontWeight: 'bold', fontStyle: 'italic' }}>Select sprint<span style={{ color: 'red' }}>*</span></label><br />
                             {/* <input type="text" aria-label='Name' onChange={(e) => setSprint(e.target.value) } /> */}
-                            <select id='sprint' style={{ fontWeight: 'normal', fontStyle: 'italic' }} className='col-md-12' onChange={handleInpChanges}>
+                            <select id='sprint' style={{ fontWeight: 'normal', fontStyle: 'italic' }} className='col-md-12' onChange={handleInpChanges} onBlur={handleInputNullCheck}>
                                 <option value="0" style={{ fontWeight: 'bold', fontStyle: 'italic' }}>Select sprint</option>
                                 {
                                     relType.map((v) => (
@@ -187,11 +249,12 @@ export default function Release() {
                                     ))
                                 }
                             </select>
+                            {errors.sprint && <div style={{ color: 'red' }}>{errors.sprint}</div>}
                         </div>
                     </div>
                     <div className='mt-3'>
                         <label style={{ marginLeft: '70px', fontWeight: 'bold', fontStyle: 'italic' }}>Description</label><br />
-                        <input id='description' type="text" placeholder='Description' style={{ width: '600px', marginLeft: '70px', height: '40px' }} onChange={handleInpChanges} />
+                        <input id='description' maxLength={4000} type="text" placeholder='Description' style={{ width: '600px', marginLeft: '70px', height: '80px' }} onChange={handleInpChanges} />
                     </div>
                     <div className="mb-2 offset-md-3 mt-3">
                         <button id="btnAdd" data-testid="btnAdd" type="button"

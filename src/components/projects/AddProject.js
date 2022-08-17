@@ -7,12 +7,13 @@ export default function AddProject() {
     const [environmanet, setenvironmanet] = useState('');
     const [description, setDescription] = useState('');
     const [buttonEnable, setButtonEnable] = useState(true);
+    let errorsObj = {projectName:'',projectId:'',environmanet:'',description:''}
+    const [errors, setErrors] = useState(errorsObj);
 
     useEffect(() => {
         console.log('useEffect')
         validation();
     }, [projectId,projectName,environmanet,description])
-
 
     const handleInputChange = (e) => {
         if (e.target.id === 'projectName') setProjectName(e.target.value);
@@ -20,6 +21,31 @@ export default function AddProject() {
         if (e.target.id === 'projectEnv') setenvironmanet(e.target.value);
         if (e.target.id === 'description') setDescription(e.target.value);
         // validation();
+    }
+
+    const inputChangeHandle = (e) => {
+        let error = false;
+        const errObj = {...errorsObj};
+        if(e.target.id === 'projectName' && e.target.value === ''){
+            errObj.projectName = 'project name required';
+            error = true;
+        }
+        if(e.target.id === 'projectId' && e.target.value === ''){
+            errObj.projectId = 'project required';
+            error = true;
+        }
+        if(e.target.id === 'projectEnv' && e.target.value === ''){
+            errObj.environmanet = 'environment required';
+            error = true;
+        }
+        if(e.target.id === 'description' && e.target.value === ''){
+            errObj.description = 'description required';
+            error = true;
+        }
+        setErrors(errObj);
+        if(!error){
+            console.log('all fileds are filled')
+        }
     }
 
     const validation = () => {
@@ -49,22 +75,26 @@ export default function AddProject() {
             <div className="row">
                 <div className="col-md-4 offset-md-1">
                     <div className="mb-2" style={{ marginTop: '50px' }}>
-                        <input id="projectName" type="text" onChange={handleInputChange} className="form-control" placeholder="Enter Project Name" />
+                        <input id="projectName" type="text" onChange={handleInputChange} onBlur={inputChangeHandle} className="form-control" placeholder="Enter Project Name" />
+                        {errors.projectName && <div style={{ color: 'red' }}>{errors.projectName}</div>}
                     </div>
                 </div>
                 <div className="col-md-4 offset-md-2">
                     <div className="mb-2" style={{ marginTop: '50px' }}>
-                        <input id="projectId" type="text" onChange={handleInputChange} className="form-control" placeholder="Enter Project Id" />
+                        <input id="projectId" type="text" onChange={handleInputChange} onBlur={inputChangeHandle}  className="form-control" placeholder="Enter Project Id" />
+                        {errors.projectId && <div style={{ color: 'red' }}>{errors.projectId}</div>}
                     </div>
                 </div>
                 <div className="col-md-4 offset-md-1">
                     <div className="mb-2 mt-3">
-                        <input id="projectEnv" type="text" onChange={handleInputChange} className="form-control" placeholder="Enter the environment" />
+                        <input id="projectEnv" type="text" onChange={handleInputChange} onBlur={inputChangeHandle}  className="form-control" placeholder="Enter the environment" />
+                        {errors.environmanet && <div style={{ color: 'red' }}>{errors.environmanet}</div>}
                     </div>
                 </div>
                 <div className="col-md-4 offset-md-2">
                     <div className="mb-2 mt-3">
-                        <input id="description" type="text" onChange={handleInputChange} className="form-control" placeholder="Project Description" />
+                        <input id="description" type="text" onChange={handleInputChange} onBlur={inputChangeHandle}  className="form-control" placeholder="Project Description" />
+                        {errors.description && <div style={{ color: 'red' }}>{errors.description}</div>}
                     </div>
                 </div>
                 <div className="mb-2 offset-md-3 mt-5">
