@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './content.css'
+import PipelineParams from './pipelineparams/PipelineParams';
 
 export default function Content() {
 
@@ -8,12 +9,24 @@ export default function Content() {
     const [isActive, setIsActive] = useState([]);
     const [url, setUrl] = useState([]);
     const [status, setStatus] = useState([])
+    const [pipelineParams, setPipelineParams] = useState([]);
+
+    const [buttonPopUp, setButtonPopUp] = useState(false);
 
     useEffect(() => {
         fetch('http://localhost:3002/builds')
             .then(res => res.json())
             .then(data => setBuilds(data));
     }, [])
+
+    useEffect(() => {
+        fetch('http://localhost:3002/addPipelinePaams')
+            .then(res => res.json())
+            .then(data => setPipelineParams(data))
+    }, [])
+
+    console.log(pipelineParams);
+
 
     // const fetchResult = () => {
     //     builds.map((data) => {
@@ -123,11 +136,20 @@ export default function Content() {
     return (
         <div className='mleft'>
             <Link to="/addbuildstep" className="btn btn-secondary mb-2" type="button" style={{ borderRadius: '18px' }}>Add build step</Link>
-            <button type='button' className='btn btn-secondary btnleft' style={{ borderRadius: '18px' }} onClick={() => openInNewTab('http://localhost:8080/job/Automatic-build-job/build?token=11021102beecfe536fd521b6cf2b5156d9')}>
+            {/* {
+                pipelineParams.map((p) => (
+                    <button key={p.id} type='button' className='btn btn-secondary btnleft' style={{ borderRadius: '18px' }} onClick={() => openInNewTab(`http://localhost:8080/job/parameter-automation/buildWithParameters?token=11021102beecfe536fd521b6cf2b5156d9&FROM_BRANCH=${p.fromBranch}&NEW_BRANCH=${p.newBranch}&SERVICE=${p.service}&ENV=${p.env}&OPERATION=${p.operation}&ClusterName=${p.clusterName}&NAMESPACE=${p.nameSpace}`)}>
+                        RUN ALL
+                    </button>
+                ))
+            } */}
+            <button type='button' className='btn btn-secondary btnleft' style={{ borderRadius: '18px' }} onClick={() => openInNewTab(`http://localhost:8080/job/parameter-automation/buildWithParameters?token=11021102beecfe536fd521b6cf2b5156d9&FROM_BRANCH=11.22.33.44&NEW_BRANCH=11.22.33.44&SERVICE=service1&ENV=sit1&OPERATION=CREATE&ClusterName=cluster-even&NAMESPACE=ns-even`)}>
                 RUN ALL
             </button>
             <button type='button' style={{ borderRadius: '18px' }} className='btn btn-secondary btnleft' onClick={multiUrl}>RUN selected builds</button>
             <button type='button' style={{ borderRadius: '18px' }} className='btn btn-secondary btnleft' onClick={fetchJobDetails}>Fetch</button>
+            <button type='button' style={{ borderRadius: '18px' }} className='btn btn-secondary btnleft' onClick={() => setButtonPopUp(true)}>Add Parameter</button>
+            <PipelineParams trigger={buttonPopUp} setTrigger={setButtonPopUp}/>
             {/* <div>
         <Link to={`http://20.84.53.117:8080/job/clonejob/buildWithParameters?token=1109e38f08a3ee512708f62aeec98bd943&Name=krishnaschavan`}>
             <button type='button' className='btn btn-success mb-2'>RUN ALL</button>
@@ -146,17 +168,17 @@ export default function Content() {
                 </thead>
                 <tbody>
                     {
-                        builds.map((b) => (
+                        builds.map((b, i) => (
 
                             <tr key={b.sn} style={isActive.includes(b.sn) ? { background: 'lightgray' } : { background: 'white' }}>
-                                <th scope="row">{b.sn}</th>
+                                <th scope="row">{b.id = i + 1}</th>
                                 <td>{b.buildstep}</td>
                                 <td>{b.description}</td>
                                 <td>
                                     {/* <div className="dropdown"> */}
                                     {/* <a href={`http://20.84.53.117:8080/job/${b.jobname}/build?token=1109e38f08a3ee512708f62aeec98bd943`}>run job</a> */}
                                     {/* <a href={`http://20.84.53.117:8080/job/clonejob/buildWithParameters?token=1109e38f08a3ee512708f62aeec98bd943&Name=krishnaschavan`}>run job</a> */}
-                                    <button type='button' className='btn btn-secondary' style={{ borderRadius: '18px' }} onClick={() => openInNewTab('http://20.84.53.117:8080/job/clonejob/buildWithParameters?token=1109e38f08a3ee512708f62aeec98bd943&Name=krishnaschavan')}>
+                                    <button type='button' className='btn btn-secondary' style={{ borderRadius: '18px' }} onClick={() => openInNewTab(`http://localhost:8080/job/${b.jobname}/build?token=11021102beecfe536fd521b6cf2b5156d9`)}>
                                         Run Job
                                     </button>
                                     <input type="checkbox" id={b.sn} className="disableRow btnleft" value="websitecheck" name="websitecheck" onChange={handleCheckBox} />

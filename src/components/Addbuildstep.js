@@ -4,7 +4,7 @@ import {v4 as uuidv4} from 'uuid';
 
 export default function Addbuildstep() {
 
-    const [sn, setSn] = useState('')
+    // const [sn, setSn] = useState('')
     const [buildstep, setBuildstep] = useState('')
     const [description, setDescription] = useState('')
     const [jobname, setJobname] = useState('')
@@ -16,9 +16,9 @@ export default function Addbuildstep() {
         headers:{
             'Content-Type':'application/json'
         },
-        body:JSON.stringify({id:uuidv4(),sn,buildstep,description,jobname})
+        body:JSON.stringify({id:uuidv4(),buildstep,description,jobname})
     }).then(res=>{
-        navigate('/');
+        navigate('/projectbuilds');
     });
     }
 
@@ -26,9 +26,9 @@ export default function Addbuildstep() {
     <div className='container mt-3'>
         <div className="row">
             <div className="col-md-4 offset-md-4">
-                <div className="mb-2">
+                {/* <div className="mb-2">
                     <input id="txtid" type="text" onChange={(e)=>setSn(e.target.value)} className="form-control" placeholder="Enter snum"/>
-                </div>
+                </div> */}
                 <div className="mb-2">
                     <input id="txtstep" type="text" onChange={(e)=>setBuildstep(e.target.value)} className="form-control" placeholder="Enter build step"/>
                 </div>

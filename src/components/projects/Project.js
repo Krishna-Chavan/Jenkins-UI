@@ -11,8 +11,8 @@ export default function Project() {
     }
     return (
         <div>
-            <Link to="/addProject" className="btn btn-primary mb-2 mt-3" type="submit" style={{marginLeft: '1050px',borderRadius: '18px', width: '120px'}}>
-               Add Project
+            <Link to="/addProject" className="btn btn-primary mb-2 mt-3" type="submit" style={{ marginLeft: '1050px', borderRadius: '18px', width: '120px' }}>
+                Add Application
             </Link>
             <div class="card mt-3" style={{
                 boxShadow: ' 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',

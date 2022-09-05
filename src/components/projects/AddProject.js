@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddProject() {
 
@@ -10,10 +12,24 @@ export default function AddProject() {
     let errorsObj = {projectName:'',projectId:'',environmanet:'',description:''}
     const [errors, setErrors] = useState(errorsObj);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         console.log('useEffect')
         validation();
     }, [projectId,projectName,environmanet,description])
+
+    const addApplication = () => {
+        fetch('http://localhost:3002/addApplication',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({id: uuidv4(),projectName,projectId,environmanet,description})
+        }).then(res => {
+            navigate('/');
+        })
+    }
 
     const handleInputChange = (e) => {
         if (e.target.id === 'projectName') setProjectName(e.target.value);
@@ -98,7 +114,7 @@ export default function AddProject() {
                     </div>
                 </div>
                 <div className="mb-2 offset-md-3 mt-5">
-                    <button id="btnAdd" data-testid="btnAdd" type="button" className="btn btn-secondary" style={{ borderRadius: '18px', width: '120px' }} disabled={buttonEnable} >Add Project</button>
+                    <button id="btnAdd" data-testid="btnAdd" type="button" className="btn btn-secondary" style={{ borderRadius: '18px', width: '120px' }} disabled={buttonEnable} onClick={addApplication} >Add Project</button>
                     <button id="btnAdd" data-testid="btnAdd" type="button"
                         className="btn btn-secondary"
                         style={{ borderRadius: '18px', width: '120px', marginLeft: '100px' }}

@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Release from './components/Release';
 import AddProject from './components/projects/AddProject';
 import Project from './components/projects/Project';
+import PipelineParams from './components/pipelineparams/PipelineParams';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route  path="/release" element={<Release />} />
           <Route  path="/addProject" element={<AddProject />} />
           <Route  path="/" element={<Project />} />
+          <Route  path="/pipelineparams" element={<PipelineParams />} />
         </Routes>
       {/* </Router> */}
     </BrowserRouter>

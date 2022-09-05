@@ -1,90 +1,57 @@
 {
   "parameters": [
     {
-      "id": "054b8322-fc22-4196-9370-cc1585159848",
+      "id": "3b0d3596-f8cd-4d37-96af-588136eaec2c",
       "name": "branch",
-      "value": "dev",
-      "releaseType": "first release",
-      "envName": "Prod Env",
-      "selectSprint": "sprint1"
-    },
-    {
-      "id": "51bf027c-da0b-463f-ac67-ca7b757ba165",
-      "name": "branch1",
       "value": "master",
-      "releaseType": "second release",
-      "envName": "dev env",
-      "selectSprint": "sprint2"
-    },
-    {
-      "id": "717389c8-9466-4e41-8f4d-030427f7a238",
-      "name": "1",
-      "value": "2",
-      "releaseType": "1",
-      "envName": "1",
+      "releaseType": "envfirst",
+      "envName": "var1",
       "selectSprint": "1"
-    },
-    {
-      "id": "51d3ab88-e9b2-4f41-b322-f3ed6257eaeb",
-      "name": "1",
-      "value": "1",
-      "releaseType": "1",
-      "envName": "1",
-      "selectSprint": "1"
-    },
-    {
-      "id": "8bbae459-5a6a-4639-9b78-49f799618e3c",
-      "name": "1",
-      "value": "2",
-      "releaseType": "3",
-      "envName": "4",
-      "selectSprint": "2"
     }
   ],
   "builds": [
     {
-      "id": "44a81479-dede-4e99-9315-b877c402c10b",
+      "id": "e5514297-b34f-4aa3-9fd1-e0dba7fd31ed",
       "sn": "1",
-      "buildstep": "Branch Creation",
-      "description": "branch creation for gitlab",
+      "buildstep": "branchcreation",
+      "description": "branch creation",
       "jobname": "firstjob"
     },
     {
-      "id": "7ee9fa91-3b93-41ce-a1c8-f28a3c686e12",
+      "id": "b637b46c-878d-451d-b24b-581506374b9f",
       "sn": "2",
-      "buildstep": "clone Job",
-      "description": "clone job freestyle",
-      "jobname": "clonejob"
-    }
-  ],
-  "addRelease": [
-    {
-      "id": "dfa6a2cd-a706-4004-81bd-9cc778fa30a9",
-      "envavailabilitydate": "2022-08-09",
-      "deploymentdate": "2022-08-09",
-      "codefreezedate": "2022-08-09",
-      "releaseType": "master",
-      "releaseName": "first",
-      "branchName": "master",
-      "clarityRelease": "confirm",
-      "jirafix": "1",
-      "envname": "master",
-      "sprint": "1",
-      "description": "first release"
+      "buildstep": "automerge",
+      "description": "automerge",
+      "jobname": "clonedjobe"
     },
     {
-      "id": "ecc8abff-f621-4e91-a839-5c65db0f186c",
-      "envavailabilitydate": "2022-08-25",
-      "deploymentdate": "2022-09-08",
-      "codefreezedate": "2022-08-23",
-      "releaseType": "",
-      "releaseName": "env2",
-      "branchName": "",
-      "clarityRelease": "abcd",
-      "jirafix": "2",
-      "envname": "",
-      "sprint": "sprint2",
-      "description": "second release"
+      "id": "b09e4d13-02c8-4b49-9278-b7d2e38c1cfe",
+      "sn": "3",
+      "buildstep": "eks",
+      "description": "eks",
+      "jobname": "eks"
+    },
+    {
+      "id": "2639e110-f1f6-4fe5-93bd-8ffa8f8c66a5",
+      "buildstep": "one",
+      "description": "three",
+      "jobname": "branch creation"
     }
-  ]
+  ],
+  "addPipelinePaams": [
+    {
+      "id": "ffa49150-bb96-42e6-b868-c975d471e531",
+      "fromBranch": "11.11.11",
+      "newBranch": "11.11.11",
+      "env": "sit2",
+      "service": [
+        "service 2",
+        "service 3"
+      ],
+      "operation": "CREATE",
+      "clusterName": "",
+      "nameSpace": ""
+    }
+  ],
+  "addApplication": []
 }
